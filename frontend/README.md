@@ -1,8 +1,4 @@
-# Davidious AI Code Lab Trainer
-
-## AI-Powered Coding Training and Evaluation System 
-
-### AI coding lab with task generation, sandbox code execution, evaluation, progress tracking, and timed interview simulation. 
+# Backend of the Application
 
 # Tech Stack
 
@@ -10,16 +6,14 @@
 - FastAPI
 - OpenAI API
 - LangChain
-- Typescript
-- React
 - PostgreSQL
 - SQLModel ORM
-- Docker
 
 ---
 
 # Features
 
+- Authentication
 - AI-driven coding task generation 
 - Dockerized secure sandbox code execution 
 - Automated solution evaluation system 
@@ -29,7 +23,4 @@
 - Progress tracking and analytics  
 
 ### Project requirements for frontend are in :
-./frontend/package.json
-
-### Project requirements for backend are in :
-./backend/pyproject.toml
+package.json
