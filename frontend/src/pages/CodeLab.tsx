@@ -33,19 +33,19 @@ export const CodeLabPage: React.FC = () => {
             Explorer
           </div>
           <div className="p-2 flex-1 overflow-y-auto space-y-1">
-            <div 
+            <div
               className={`px-3 py-1.5 text-sm rounded cursor-pointer transition-colors ${activeTab === 'main.py' ? 'bg-[#1f6feb] text-white' : 'hover:bg-[#21262d]'}`}
               onClick={() => setActiveTab('main.py')}
             >
               <span className="text-blue-400 mr-2"></span> main.py
             </div>
-            <div 
+            <div
               className={`px-3 py-1.5 text-sm rounded cursor-pointer transition-colors ${activeTab === 'utils.py' ? 'bg-[#1f6feb] text-white' : 'hover:bg-[#21262d]'}`}
               onClick={() => setActiveTab('utils.py')}
             >
               <span className="text-blue-400 mr-2"></span> utils.py
             </div>
-            <div 
+            <div
               className={`px-3 py-1.5 text-sm rounded cursor-pointer transition-colors ${activeTab === 'config.json' ? 'bg-[#1f6feb] text-white' : 'hover:bg-[#21262d]'}`}
               onClick={() => setActiveTab('config.json')}
             >
@@ -66,7 +66,7 @@ export const CodeLabPage: React.FC = () => {
             <div className="p-4 flex-1 overflow-auto text-sm leading-relaxed" style={{ fontFamily: '"Fira Code", "JetBrains Mono", monospace' }}>
               {activeTab === 'main.py' && (
                 <pre>
-                  <code className="text-[#8b949e]"># Welcome {user?.name || user?.email} to your Sandbox!</code>{'\n'}
+                  <code className="text-[#8b949e]"># Welcome {user?.full_name || user?.email} to your Sandbox!</code>{'\n'}
                   <code className="text-[#ff7b72]">import</code> <code className="text-[#79c0ff]">os</code>{'\n'}
                   <code className="text-[#ff7b72]">import</code> <code className="text-[#79c0ff]">davidious_ai</code>{'\n'}
                   {'\n'}
