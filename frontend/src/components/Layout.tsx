@@ -49,6 +49,13 @@ export default function Layout() {
                     Davidius
                 </Link>
 
+                <Link
+                    to="/about"
+                    className="nav-link"
+                >
+                    About Us
+                </Link>
+
                 {user && (
                     <>
                         <Link

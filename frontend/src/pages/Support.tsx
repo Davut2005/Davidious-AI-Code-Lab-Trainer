@@ -29,7 +29,7 @@ export function SupportPage() {
             <h2 className="text-2xl font-bold border-b border-[var(--color-border)] pb-2">
               Contact Information
             </h2>
-            
+
             <div className="grid gap-4">
               <div className="flex items-start gap-4 p-6 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] hover:border-indigo-500/50 transition-colors">
                 <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-400">
@@ -38,8 +38,8 @@ export function SupportPage() {
                 <div>
                   <h3 className="font-semibold text-lg text-[var(--color-text)]">Phone Support</h3>
                   <p className="text-[var(--color-text-secondary)] text-sm mb-2">Available Mon-Fri, 9am - 5pm EST</p>
-                  <a href="tel:+18005550198" className="text-2xl font-bold tracking-wider text-indigo-400 hover:text-indigo-300 transition-colors">
-                    1-800-555-0198
+                  <a href="tel:+40771027429" className="text-2xl font-bold tracking-wider text-indigo-400 hover:text-indigo-300 transition-colors">
+                    +40 771 027 429
                   </a>
                 </div>
               </div>
@@ -51,8 +51,8 @@ export function SupportPage() {
                 <div>
                   <h3 className="font-semibold text-lg text-[var(--color-text)]">Email Support</h3>
                   <p className="text-[var(--color-text-secondary)] text-sm mb-2">We typically respond within 24 hours.</p>
-                  <a href="mailto:support@davidious.com" className="text-xl font-medium tracking-wide text-blue-400 hover:text-blue-300 transition-colors">
-                    support@davidious.com
+                  <a href="mailto:2005dawut55@gmail.com" className="text-xl font-medium tracking-wide text-blue-400 hover:text-blue-300 transition-colors">
+                    2005dawut55@gmail.com
                   </a>
                 </div>
               </div>
@@ -78,13 +78,13 @@ export function SupportPage() {
             </h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 bg-[var(--color-bg-secondary)] p-8 rounded-3xl border border-[var(--color-border)] shadow-lg">
-              
+
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-[var(--color-text-secondary)] ml-1">Subject</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
-                  placeholder="E.g., Sandbox environment not loading" 
+                  placeholder="E.g., Sandbox environment not loading"
                   className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                 />
               </div>
@@ -102,16 +102,16 @@ export function SupportPage() {
 
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-[var(--color-text-secondary)] ml-1">Description</label>
-                <textarea 
+                <textarea
                   required
                   rows={5}
-                  placeholder="Please describe the issue in detail. If it's a bug, include steps to reproduce." 
+                  placeholder="Please describe the issue in detail. If it's a bug, include steps to reproduce."
                   className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all resize-none"
                 ></textarea>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubmitted}
                 className="mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white px-6 py-4 rounded-xl font-semibold transition-all duration-300 active:scale-95 shadow-md hover:shadow-indigo-500/25 disabled:opacity-70 disabled:cursor-not-allowed"
               >
