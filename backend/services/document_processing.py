@@ -8,6 +8,10 @@ from models import Document, DocumentChunk
 from services.chunking import chunk_and_store
 from services.text_extraction import extract_text
 from core.config import settings
+from ai.embedding import create_embedding
+from ai.generate_questions import generate_questions_for_concept
+from services.vector_store import insert_chunk_embedding
+from services.concept_from_chunk import extract_concepts_from_chunk
 
 logger = logging.getLogger(__name__)
 
