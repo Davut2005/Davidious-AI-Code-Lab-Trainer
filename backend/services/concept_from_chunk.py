@@ -8,7 +8,7 @@ from sqlmodel import Session, select
 
 from database import engine
 from models import Concept
-from agents.llm import generate_response
+from ai.llm import generate_response
 
 logger = logging.getLogger(__name__)
 
