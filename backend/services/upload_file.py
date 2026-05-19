@@ -32,7 +32,7 @@ def _validate_file(filename: str, content_type: str | None) -> None:
         pass
 
 
-def upload_file(file:UploadFile,user_id:int,db:Session,background_tasks:BackgroundTasks):
+def upload_file(file:UploadFile,user_id:int,db:Session,background_tasks:BackgroundTasks, learning_path_id: int | None = None):
     
     _validate_file(file.filename or "", file.content_type)
 
@@ -58,6 +58,7 @@ def upload_file(file:UploadFile,user_id:int,db:Session,background_tasks:Backgrou
 
     doc = Document(
         user_id=user_id,
+        learning_path_id=learning_path_id,
         title=title,
         source=source_rel,
     )

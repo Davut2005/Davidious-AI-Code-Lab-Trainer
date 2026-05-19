@@ -1,0 +1,552 @@
+Retrieval-Augmented Generation (RAG) — Complete Technical Overview
+1. Definition
+
+Retrieval-Augmented Generation (RAG) is an architecture that combines:
+
+Information retrieval
+
+Large language model generation
+
+The goal is to allow a language model to answer questions using external knowledge sources instead of relying only on its internal training data.
+
+RAG pipeline:
+
+User Query
+   ↓
+Embedding
+   ↓
+Vector Search (retrieve relevant documents)
+   ↓
+Context Assembly
+   ↓
+LLM Generation
+   ↓
+Answer
+
+RAG solves three fundamental LLM limitations:
+
+Hallucination
+
+Outdated knowledge
+
+Limited context training data
+
+2. Core Components of a RAG System
+
+A production RAG system typically contains the following components.
+
+Data Source
+   ↓
+Document Processing
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+Vector Database
+   ↓
+Retriever
+   ↓
+Prompt Construction
+   ↓
+LLM
+   ↓
+Answer
+
+Each stage is critical.
+
+3. Data Sources
+
+RAG uses external data.
+
+Examples:
+
+PDFs
+
+Websites
+
+Databases
+
+Markdown
+
+Documentation
+
+Notion pages
+
+Code repositories
+
+Example dataset:
+
+company_docs/
+   handbook.pdf
+   policies.txt
+   api_docs.md
+
+The goal is to convert these documents into retrievable units.
+
+4. Document Processing
+
+Documents must be converted into raw text.
+
+Common tools:
+
+PDF parsers
+
+HTML scrapers
+
+OCR systems
+
+Example pipeline:
+
+PDF → text
+HTML → text
+DOCX → text
+
+Example output:
+
+"Company vacation policy allows employees 20 days per year..."
+5. Chunking
+
+Large documents cannot be embedded directly because embeddings work best on small passages.
+
+Chunking splits text into smaller segments.
+
+Example:
+
+Original document:
+
+10000 words
+
+Split into:
+
+200 chunks × 50 words
+
+Typical chunk sizes:
+
+Type	Size
+small chunks	200 tokens
+standard	400–800 tokens
+large	1000 tokens
+
+Example chunk:
+
+Chunk 1:
+"The company vacation policy allows employees 20 days per year..."
+
+Chunk 2:
+"Unused vacation days can be carried over to the next year..."
+
+Chunking strategies:
+
+Fixed length
+
+Sentence based
+
+Semantic chunking
+
+Recursive chunking
+
+6. Embeddings
+
+Embeddings convert text into numerical vectors.
+
+Example:
+
+Text:
+"Dogs are animals"
+
+Embedding:
+[0.123, -0.991, 0.332, ...]
+
+Properties:
+
+semantic meaning encoded
+
+similar texts → similar vectors
+
+Example similarity:
+
+"Dogs are animals"
+"Wolves are animals"
+
+Vectors will be close in space.
+
+Embedding models include:
+
+text-embedding models
+
+transformer encoders
+
+sentence transformers
+
+Typical vector size:
+
+Model	Dimension
+small	384
+medium	768
+large	1536
+7. Vector Databases
+
+Embeddings must be stored in a database optimized for vector similarity search.
+
+This is called a vector database.
+
+Examples include:
+
+Pinecone
+
+Weaviate
+
+Qdrant
+
+FAISS
+
+Stored structure:
+
+vector
+text
+metadata
+
+Example record:
+
+{
+  vector: [0.233, 0.122, ...],
+  text: "Employees get 20 vacation days",
+  metadata: {source: "handbook.pdf"}
+}
+8. Indexing
+
+Indexing prepares the vectors for fast search.
+
+Typical index structures:
+
+HNSW (Hierarchical Navigable Small World)
+
+IVF (Inverted File Index)
+
+Flat index
+
+HNSW is most commonly used.
+
+Benefits:
+
+fast search
+
+scalable
+
+approximate nearest neighbor search
+
+9. Query Processing
+
+When a user asks a question:
+
+"What is the vacation policy?"
+
+The system performs the same embedding process.
+
+query → embedding
+
+Example:
+
+[0.233, 0.811, -0.192, ...]
+
+This vector is then used to search the vector database.
+
+10. Vector Similarity Search
+
+The system retrieves top-k similar chunks.
+
+Example:
+
+Top 3 results:
+
+1. "Employees get 20 vacation days"
+2. "Unused vacation can be carried over"
+3. "Vacation must be approved by manager"
+
+Similarity metrics used:
+
+Metric	Description
+Cosine similarity	most common
+Euclidean distance	geometric distance
+Dot product	embedding alignment
+
+Cosine similarity formula:
+
+cos(A,B) = (A · B) / (||A|| ||B||)
+11. Context Assembly
+
+Retrieved documents are combined into a context block.
+
+Example:
+
+Context:
+Employees get 20 vacation days per year.
+Unused vacation days carry over.
+
+Question:
+What is the vacation policy?
+12. Prompt Construction
+
+The prompt is constructed carefully.
+
+Example:
+
+You are a helpful assistant.
+
+Answer using the context below.
+
+Context:
+Employees get 20 vacation days per year.
+Unused vacation days carry over.
+
+Question:
+What is the vacation policy?
+
+This prompt is sent to the language model.
+
+13. LLM Generation
+
+The language model generates an answer based on:
+
+prompt
+
+retrieved context
+
+its internal knowledge
+
+Example output:
+
+Employees receive 20 vacation days per year.
+Unused days may carry over to the following year.
+14. End-to-End RAG Pipeline
+
+Full pipeline:
+
+Documents
+   ↓
+Chunking
+   ↓
+Embeddings
+   ↓
+Vector Database
+   ↓
+User Query
+   ↓
+Query Embedding
+   ↓
+Similarity Search
+   ↓
+Retrieve Top-K Chunks
+   ↓
+Build Prompt
+   ↓
+LLM Response
+15. Advanced RAG Techniques
+Re-ranking
+
+Initial retrieval may not return the best results.
+
+A re-ranking model reorders results.
+
+Pipeline:
+
+vector search → 20 results
+re-ranker → best 5 results
+
+Re-ranking improves answer accuracy.
+
+Hybrid Search
+
+Combine:
+
+vector search
+
+keyword search
+
+Example:
+
+vector similarity
++
+BM25 keyword ranking
+
+This improves retrieval quality.
+
+Multi-step Retrieval
+
+Some queries require multiple retrieval steps.
+
+Example:
+
+Query → retrieve doc
+Doc → retrieve related docs
+Query Expansion
+
+Rewrite the query to improve retrieval.
+
+Example:
+
+"What is vacation policy?"
+
+→ expanded query
+
+"company employee vacation leave policy rules"
+Metadata Filtering
+
+Search within filtered documents.
+
+Example:
+
+metadata:
+{
+  department: "engineering"
+}
+
+Vector search only within that subset.
+
+16. Evaluation Metrics
+
+RAG systems must be evaluated.
+
+Common metrics:
+
+Metric	Meaning
+Recall@K	relevant docs retrieved
+Precision	accuracy of retrieval
+MRR	ranking quality
+Answer correctness	final LLM answer accuracy
+17. Common RAG Problems
+Hallucination
+
+LLM generates unsupported answers.
+
+Solution:
+
+strict prompts
+
+citations
+
+grounding
+
+Context overflow
+
+LLMs have token limits.
+
+Example:
+
+GPT context limit
+
+Solutions:
+
+chunk selection
+
+summarization
+
+sliding window
+
+Poor chunking
+
+Bad chunking reduces retrieval accuracy.
+
+Best practice:
+
+semantic chunking
+18. Typical Tech Stack
+
+Typical modern RAG stack:
+
+Frontend:
+
+React
+
+Backend:
+
+FastAPI / Node
+
+Embedding:
+
+embedding model
+
+Vector database:
+
+vector store
+
+LLM:
+
+transformer model
+
+19. Example Pseudocode
+documents = load_documents()
+
+chunks = split_into_chunks(documents)
+
+vectors = embed(chunks)
+
+vector_db.store(vectors)
+
+query = user_input()
+
+query_vector = embed(query)
+
+results = vector_db.search(query_vector)
+
+context = combine(results)
+
+answer = LLM(context + query)
+
+return answer
+20. Real Use Cases
+
+RAG is used in:
+
+enterprise document search
+
+coding assistants
+
+legal research
+
+medical knowledge systems
+
+chatbots with private data
+
+knowledge base assistants
+
+21. Advantages of RAG
+
+Advantages:
+
+real-time knowledge
+
+reduced hallucination
+
+no need to retrain LLM
+
+scalable knowledge base
+
+domain-specific intelligence
+
+22. Limitations
+
+Limitations:
+
+retrieval errors propagate to LLM
+
+embedding quality matters
+
+latency increases
+
+requires infrastructure
+
+23. Future Directions
+
+RAG research is evolving toward:
+
+agentic retrieval
+
+multi-hop reasoning
+
+graph RAG
+
+adaptive chunking
+
+retrieval-aware training

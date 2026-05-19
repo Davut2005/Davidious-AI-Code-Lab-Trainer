@@ -76,20 +76,23 @@ def process_document(document_id: int) -> None:
 
         doc_id_str = str(doc_id)
         for chunk_id, content in chunk_data:
+            # Embedding + vector storage (non-blocking: pgvector may not be installed)
             try:
-                # Embedding
                 embedding = create_embedding(content)
-                # Store vector (PostgreSQL pgvector)
                 insert_chunk_embedding(
                     chunk_id=str(chunk_id),
                     document_id=doc_id_str,
                     content=content,
                     embedding=embedding,
                 )
-                # Concept extraction
+            except Exception as e:
+                logger.warning("Document processing: embedding/vector failed for chunk id=%s: %s", chunk_id, e)
+
+            # Concept extraction (independent of embedding success)
+            try:
                 extract_concepts_from_chunk(doc_id_str, content)
             except Exception as e:
-                logger.exception("Document processing: error processing chunk id=%s: %s", chunk_id, e)
+                logger.exception("Document processing: concept extraction failed for chunk id=%s: %s", chunk_id, e)
 
         # Question generation for all concepts of this document
         with Session(engine) as db:
