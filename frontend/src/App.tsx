@@ -18,7 +18,6 @@ import { CareersPage } from './pages/Careers';
 import { SupportPage } from './pages/Support';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicy';
 import { TermsOfServicePage } from './pages/TermsOfService';
-import { SecurityPage } from './pages/Security';
 import { AboutPage } from './pages/About';
 import { ContactPage } from './pages/Contact';
 
@@ -36,7 +35,6 @@ function App() {
               <Route path="/support" element={<SupportPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />
               <Route path="/terms" element={<TermsOfServicePage />} />
-              <Route path="/security" element={<SecurityPage />} />
 
               <Route element={<AuthLayout />}>
                 <Route path="/login" element={<Login />} />

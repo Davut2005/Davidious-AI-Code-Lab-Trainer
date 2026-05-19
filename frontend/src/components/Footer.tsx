@@ -51,20 +51,12 @@ export default function Footer() {
                         <Link to="/codelab" className="text-sm hover:text-[var(--color-text)] transition-colors">Code Lab</Link>
                     </div>
 
-                    {/* Column 2 */}
-                    <div className="flex flex-col gap-3">
-                        <h3 className="font-semibold text-sm text-[var(--color-text)] mb-2">Resources</h3>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Documentation</a>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">API Reference</a>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Community</a>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Blog</a>
-                    </div>
 
                     {/* Column 3 */}
                     <div className="flex flex-col gap-3">
                         <h3 className="font-semibold text-sm text-[var(--color-text)] mb-2">Legal & Safety</h3>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Privacy Policy</a>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Terms of Service</a>
+                        <Link to="/privacy" className="text-sm hover:text-[var(--color-text)] transition-colors">Privacy Policy</Link>
+                        <Link to="/terms" className="text-sm hover:text-[var(--color-text)] transition-colors">Terms of Service</Link>
                         <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Security</a>
                         <Link to="/support" className="text-sm hover:text-[var(--color-text)] transition-colors">Report Issue</Link>
                     </div>
@@ -72,9 +64,9 @@ export default function Footer() {
                     {/* Column 4 */}
                     <div className="flex flex-col gap-3">
                         <h3 className="font-semibold text-sm text-[var(--color-text)] mb-2">Company</h3>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">About Us</a>
+                        <Link to="/about" className="text-sm hover:text-[var(--color-text)] transition-colors">About Us</Link>
                         <Link to="/careers" className="text-sm hover:text-[var(--color-text)] transition-colors">Careers</Link>
-                        <a href="#" className="text-sm hover:text-[var(--color-text)] transition-colors">Contact</a>
+                        <Link to="/contact" className="text-sm hover:text-[var(--color-text)] transition-colors">Contact</Link>
                     </div>
                 </div>
             </div>
