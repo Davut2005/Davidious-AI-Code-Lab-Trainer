@@ -4,7 +4,7 @@ from pathlib import Path
 from sqlmodel import Session, select
 
 from database import engine
-from models import Document, DocumentChunk
+from models import Document, DocumentChunk, Concept
 from services.chunking import chunk_and_store
 from services.text_extraction import extract_text
 from core.config import settings
@@ -73,6 +73,45 @@ def process_document(document_id: int) -> None:
                     return
             # Collect id and content before session closes
             chunk_data = [(c.id, c.content) for c in chunks]
+
+        doc_id_str = str(doc_id)
+        for chunk_id, content in chunk_data:
+            try:
+                # Embedding
+                embedding = create_embedding(content)
+                # Store vector (PostgreSQL pgvector)
+                insert_chunk_embedding(
+                    chunk_id=str(chunk_id),
+                    document_id=doc_id_str,
+                    content=content,
+                    embedding=embedding,
+                )
+                # Concept extraction
+                extract_concepts_from_chunk(doc_id_str, content)
+            except Exception as e:
+                logger.exception("Document processing: error processing chunk id=%s: %s", chunk_id, e)
+
+        # Question generation for all concepts of this document
+        with Session(engine) as db:
+            concepts = list(
+                db.exec(select(Concept).where(Concept.document_id == doc_id)).all()
+            )
+        for concept in concepts:
+            try:
+                generate_questions_for_concept(doc_id_str, concept.name)
+            except Exception as e:
+                logger.exception("Document processing: error generating questions for concept %s: %s", concept.name, e)
+
+        logger.info("Document processing completed for document_id=%s", document_id)
+
+        # If this document belongs to a learning path, regenerate the roadmap
+        with Session(engine) as db:
+            doc = db.get(Document, document_id)
+            learning_path_id = doc.learning_path_id if doc else None
+
+        if learning_path_id:
+            from ai.generate_roadmap import generate_roadmap
+            generate_roadmap(learning_path_id)
 
     except Exception as e:
         logger.exception("Document processing failed for document_id=%s: %s", document_id, e)
