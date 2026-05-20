@@ -14,6 +14,7 @@ import PathListPage from "./pages/PathList";
 import PathDetailPage from "./pages/PathDetail";
 import UploadPage from "./pages/Upload";
 import CreatePathPage from "./pages/CreatePath";
+import QuizPage from "./pages/Quiz";
 import { CareersPage } from './pages/Careers';
 import { SupportPage } from './pages/Support';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicy';
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/paths/new" element={<CreatePathPage />} />
                 <Route path="/paths/:id" element={<PathDetailPage />} />
                 <Route path="/upload" element={<UploadPage />} />
+                <Route path="/quiz" element={<QuizPage />} />
               </Route>
 
             </Route>

@@ -108,7 +108,7 @@ def add_document_to_path(
 
     path = _get_path_or_404(path_id, user.id, db)
     # Use the shared upload_file service – it returns the response model.
-    upload_file(file=file, user_id=user.id, db=db, background_tasks=background_tasks)
+    upload_file(file=file, user_id=user.id, db=db, background_tasks=background_tasks, learning_path_id=path.id)
     # Mark the path as processing so the frontend knows work is pending.
     path.status = "processing"
     db.add(path)

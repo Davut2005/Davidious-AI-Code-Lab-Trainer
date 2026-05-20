@@ -150,3 +150,58 @@ export async function addYouTubeToPath(
     }
     return r.json();
 }
+
+
+// Quiz API
+
+export type QuizQuestion = {
+    id: number;
+    concept_id: number;
+    concept_name: string;
+    question_text: string;
+    correct_answer: string;
+    options: { difficulty?: string } | null;
+};
+
+export type AnswerSubmit = {
+    question_id: number;
+    user_answer: string;
+};
+
+export type AnswerResult = {
+    question_id: number;
+    was_correct: boolean;
+    correct_answer: string;
+};
+
+export type QuizSummary = {
+    total: number;
+    correct: number;
+    score_percent: number;
+    results: AnswerResult[];
+};
+
+export async function getQuizForPath(pathId: number): Promise<QuizQuestion[]> {
+    const r = await fetch(`${API_BASE}/quiz/learning-path/${pathId}`, {
+        headers: authHeaders(),
+    });
+    if (!r.ok) {
+        if (r.status === 401) throw new Error("Please log in again.");
+        if (r.status === 404) throw new Error("Learning path not found");
+        throw new Error("Failed to load quiz");
+    }
+    return r.json();
+}
+
+export async function submitQuiz(answers: AnswerSubmit[]): Promise<QuizSummary> {
+    const r = await fetch(`${API_BASE}/quiz/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders() },
+        body: JSON.stringify(answers),
+    });
+    if (!r.ok) {
+        const err = await r.json().catch(() => ({ detail: r.statusText }));
+        throw new Error(err.detail || "Failed to submit quiz");
+    }
+    return r.json();
+}
